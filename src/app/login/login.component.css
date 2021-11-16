@@ -1,0 +1,22 @@
+.it_drap_1{
+  background-color: green;
+  color: white;
+}
+.it_drap_2{
+  background-color: white;
+  color: black;
+}
+.it_drap_3{
+  background-color: red;
+  color: white;
+}
+
+.divrap{
+  text-align: center;
+  padding-top: 8.5px;
+  width: 18em;
+  border-radius: 7px;
+  border: green;
+  border-width: 1px;
+  border-style: groove ;
+}

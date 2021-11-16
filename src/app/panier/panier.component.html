@@ -1,0 +1,86 @@
+<div class="container">
+  <br>
+  <div class="divrap">
+    <h3><span class="it_drap_1" >Pizzeria </span><span class="it_drap_2">- Ria - </span><span class="it_drap_3">Mario </span></h3>
+  </div>
+  <br>
+  <h4>Récapitulatif de votre commande</h4>
+  <br>
+
+  <table class="table table-success" >
+    <thead>
+    <tr>
+      <th scope="col">N°</th>
+      <th scope="col">Images</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Qte Acheter</th>
+      <th scope="col">Prix unitaire</th>
+      <th scope="col">Suppression</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let pizza of getlistAchat(); let i = index">
+      <th scope="row">{{pizza.pizzaChoix.id}}</th>
+      <td><img [src]="pizza.pizzaChoix.photo" style="width: 50px;height: 50px" alt="img-{{pizza.pizzaChoix.photo}}"></td>
+      <td>{{pizza.pizzaChoix.nom}}</td>
+      <td>{{pizza.qteAch}}</td>
+      <td>{{pizza.pizzaChoix.prix}}</td>
+      <td><button (click)="delPizza(i)" [id]='pizza.pizzaChoix.id' class="btn btn-danger">Supprimez</button></td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Prix Total</td>
+      <td>{{montantTotal() | number:'1.2-2' | currency:'EUR'}}</td>
+<!--      <td><button (click)="goToPanier()" class="btn btn-success">Acheter</button></td>-->
+    </tr>
+    </tfoot>
+  </table>
+  <form [formGroup]="coordClientForm" (ngSubmit)="onSubmit()">
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">Nom</span>
+      <input type="text" class="form-control" placeholder="Nom" aria-label="Nom" aria-describedby="basic-addon1" formControlName="nom">
+
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="coordClientForm.controls['nom'].errors && (coordClientForm.controls['nom'].valid || coordClientForm.controls['nom'].dirty)" >Pas valable</div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon2">Prenom</span>
+      <input type="text" class="form-control" placeholder="Prenom" aria-label="Prenom" aria-describedby="basic-addon2" formControlName="prenom">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="coordClientForm.controls['prenom'].errors && (coordClientForm.controls['prenom'].valid || coordClientForm.controls['prenom'].dirty)" >Pas valable</div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon3">IBAN</span>
+      <input type="text" class="form-control" placeholder="N° de compte" aria-label="Iban" aria-describedby="basic-addon3" formControlName="iban">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="coordClientForm.controls['iban'].errors && (coordClientForm.controls['iban'].valid || coordClientForm.controls['iban'].dirty)" >Pas valable</div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon4">Rue</span>
+      <input type="text" class="form-control" placeholder="Votre rue" aria-describedby="basic-addon4" aria-label="Rue" formControlName="rue">
+      <span class="input-group-text" id="basic-addon5">N°</span>
+      <input type="text" class="form-control" placeholder="Votre Numero" aria-label="Numero" aria-describedby="basic-addon5" formControlName="numero">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="coordClientForm.controls['rue'].errors && (coordClientForm.controls['rue'].valid || coordClientForm.controls['rue'].dirty)" >Pas valable</div>
+    <div class="alert alert-danger" role="alert" *ngIf="coordClientForm.controls['numero'].errors && (coordClientForm.controls['numero'].valid || coordClientForm.controls['numero'].dirty)" >Pas valable</div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon6">Code Postal</span>
+      <input type="text" class="form-control" placeholder="Votre code postal" aria-describedby="basic-addon6" aria-label="CP" formControlName="cp">
+      <span class="input-group-text" id="basic-addon7">Ville</span>
+      <input type="text" class="form-control" placeholder="Votre ville" aria-label="Ville" aria-describedby="basic-addon7" formControlName="ville">
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="coordClientForm.controls['cp'].errors && (coordClientForm.controls['cp'].valid || coordClientForm.controls['cp'].dirty)" >Pas valable</div>
+    <div class="alert alert-danger" role="alert" *ngIf="coordClientForm.controls['ville'].errors && (coordClientForm.controls['ville'].valid || coordClientForm.controls['ville'].dirty)" >Pas valable</div>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon8">N° de téléphone</span>
+      <input type="text" class="form-control" placeholder="Votre numéros de téléphone" aria-label="Telephone" aria-describedby="basic-addon8" formControlName="telephone">
+      <br>
+
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="coordClientForm.controls['telephone'].errors && (coordClientForm.controls['telephone'].valid || coordClientForm.controls['telephone'].dirty)" >Pas valable</div>
+  </form>
+
+  <button type="submit" *ngIf="isformValid()" (click)="onSubmit()" class="btn btn-success">Commander</button>
+</div>
+

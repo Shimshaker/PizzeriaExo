@@ -1,0 +1,75 @@
+<div class="container">
+  <br>
+  <div class="divrap">
+    <h3><span class="it_drap_1" >Pizzeria </span><span class="it_drap_2">- Ria - </span><span class="it_drap_3">Mario </span></h3>
+  </div>
+  <br>
+
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Images</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Ingrédients</th>
+      <th scope="col">Prix unitaire</th>
+      <th scope="col">Achats</th>
+
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let pizza of getlistPanier(); let i=index">
+      <th scope="row">{{pizza.produit.id}}</th>
+      <td><img [src]="pizza.produit.photo" style="width: 50px;height: 50px" alt="img-{{pizza.produit.photo}}"></td>
+      <td>{{pizza.produit.nom}}</td>
+      <td>{{pizza.produit.description}}</td>
+      <td><p>{{pizza.produit.ingredients}}</p></td>
+      <td><p>{{pizza.produit.prix}} €</p></td>
+      <td><input [(ngModel)]="pizza.qteAch" type="number" min="1" ></td>
+      <td><button (click)="ajouter(i)" [id]='pizza.produit.id' *ngIf="pizza.qteAch >= 1" type="button" class="btn btn-primary">Acheter</button> </td>
+    </tbody>
+  </table>
+
+
+  <table class="table table-success" >
+    <thead>
+    <tr>
+      <th scope="col">N°</th>
+      <th scope="col">Images</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Qte Acheter</th>
+      <th scope="col">Prix unitaire</th>
+      <th scope="col">Suppression</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pizza of getlistAchat(); let i = index">
+        <th scope="row">{{pizza.pizzaChoix.id}}</th>
+        <td><img [src]="pizza.pizzaChoix.photo" style="width: 50px;height: 50px" alt="img-{{pizza.pizzaChoix.photo}}"></td>
+        <td>{{pizza.pizzaChoix.nom}}</td>
+        <td>{{pizza.qteAch}}</td>
+        <td>{{pizza.pizzaChoix.prix}}</td>
+        <td><button (click)="delPizza(i)" [id]='pizza.pizzaChoix.id' class="btn btn-danger">Supprimez</button></td>
+      </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Prix Total</td>
+      <td>{{montantTotal() | number:'1.2-2' | currency:'EUR'}}</td>
+      <td><button (click)="goToPanier()" class="btn btn-success">Acheter</button></td>
+    </tr>
+    </tfoot>
+  </table>
+<!--    <ul class="lstPanier">-->
+<!--      <li *ngFor="let pizza of lstAchat">-->
+<!--        <span class="">{{pizza.produit.nom}}</span><span>{{pizza.produit.prix}}</span><span>{{pizza.qteAch}}</span>-->
+<!--      </li>-->
+<!--    </ul>-->
+</div>
+
